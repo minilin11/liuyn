@@ -1,0 +1,209 @@
+.tear-ticket {
+  --tt-w: 460px;
+  --tt-h: 250px;
+  --tt-stub: 150px;
+  --tt-bg: #27272a;
+  --tt-stub-bg: #27272a;
+  --tt-ink: #f5f5f5;
+  --tt-edge: transparent;
+  --tt-edge-w: 1;
+  --tt-parallax: 6px;
+  --tt-body-w: 310px;
+  --tt-body-h: 250px;
+  --tt-radius: 16px;
+  --tt-art-radius: 8px;
+  --tt-fit: 1;
+  --tt-hole-size: 6px;
+  --tt-hole-step: 14px;
+  --tt-notch: 3px;
+
+  position: relative;
+  width: min(var(--tt-w), 100%);
+  color: var(--tt-ink);
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tear-ticket[data-disabled] { opacity: 0.6; }
+
+.tear-ticket__stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--tt-w);
+  height: var(--tt-h);
+  transform: scale(var(--tt-fit));
+  transform-origin: top left;
+}
+
+.tear-ticket__plane {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+.tear-ticket__piece {
+  position: absolute;
+  top: 0;
+  height: var(--tt-h);
+  will-change: transform;
+}
+
+.tear-ticket__piece--body {
+  left: 0;
+  width: var(--tt-body-w);
+  z-index: 1;
+}
+
+.tear-ticket__piece--stub {
+  right: 0;
+  width: var(--tt-stub);
+  z-index: 2;
+  outline: none;
+  cursor: grab;
+  touch-action: none;
+}
+
+.tear-ticket__paper {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: var(--tt-radius) 0 0 var(--tt-radius);
+  background: var(--tt-bg);
+}
+
+.tear-ticket__paper--stub {
+  border-radius: 0 var(--tt-radius) var(--tt-radius) 0;
+  background: var(--tt-stub-bg);
+}
+
+.tear-ticket__border {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  border: calc(var(--tt-edge-w) * 1px) solid var(--tt-edge);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.tear-ticket__piece--body .tear-ticket__border { border-radius: var(--tt-radius) 0 0 var(--tt-radius); }
+.tear-ticket__piece--stub .tear-ticket__border { border-radius: 0 var(--tt-radius) var(--tt-radius) 0; }
+
+.tear-ticket__art {
+  position: absolute;
+  inset: 8px 8px 74px;
+  overflow: hidden;
+  border-radius: var(--tt-art-radius);
+  background: #111;
+}
+
+.tear-ticket__image {
+  position: absolute;
+  top: calc(var(--tt-parallax) * -1);
+  left: calc(var(--tt-parallax) * -1);
+  width: calc(100% + var(--tt-parallax) * 2);
+  max-width: none;
+  height: calc(100% + var(--tt-parallax) * 2);
+  object-fit: cover;
+  -webkit-user-drag: none;
+  transition: filter 700ms ease;
+}
+
+.tear-ticket[data-used] .tear-ticket__image { filter: grayscale(1) brightness(0.72); }
+
+.tear-ticket__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, var(--tt-bg) 0%, color-mix(in srgb, var(--tt-bg) 64%, transparent) 27%, transparent 62%),
+    linear-gradient(90deg, transparent 48%, color-mix(in srgb, var(--tt-bg) 48%, transparent) 100%);
+}
+
+.tear-ticket__content {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.tear-ticket[data-used] .tear-ticket__content { opacity: 0.62; }
+
+.tear-ticket__stub {
+  position: absolute;
+  inset: 0;
+}
+
+.tear-ticket__perforation {
+  position: absolute;
+  top: var(--tt-notch);
+  right: calc(var(--tt-hole-size) * -0.5);
+  bottom: var(--tt-notch);
+  z-index: 4;
+  width: var(--tt-hole-size);
+  background: radial-gradient(
+    circle,
+    #050607 0 calc(var(--tt-hole-size) * 0.47),
+    transparent calc(var(--tt-hole-size) * 0.5)
+  ) center top / var(--tt-hole-size) var(--tt-hole-step) repeat-y;
+  pointer-events: none;
+}
+
+.tear-ticket__piece--stub .tear-ticket__perforation {
+  right: auto;
+  left: calc(var(--tt-hole-size) * -0.5);
+}
+
+.tear-ticket[data-orientation='vertical'] .tear-ticket__piece {
+  width: var(--tt-w);
+}
+
+.tear-ticket[data-orientation='vertical'] .tear-ticket__piece--body {
+  top: 0;
+  height: var(--tt-body-h);
+}
+
+.tear-ticket[data-orientation='vertical'] .tear-ticket__piece--stub {
+  top: auto;
+  right: auto;
+  bottom: 0;
+  height: var(--tt-stub);
+}
+
+.tear-ticket[data-orientation='vertical'] .tear-ticket__paper {
+  border-radius: var(--tt-radius) var(--tt-radius) 0 0;
+}
+
+.tear-ticket[data-orientation='vertical'] .tear-ticket__paper--stub {
+  border-radius: 0 0 var(--tt-radius) var(--tt-radius);
+}
+
+.tear-ticket[data-orientation='vertical'] .tear-ticket__perforation {
+  top: auto;
+  right: var(--tt-notch);
+  bottom: calc(var(--tt-hole-size) * -0.5);
+  left: var(--tt-notch);
+  width: auto;
+  height: var(--tt-hole-size);
+  background-size: var(--tt-hole-step) var(--tt-hole-size);
+  background-repeat: repeat-x;
+}
+
+.tear-ticket[data-orientation='vertical'] .tear-ticket__piece--stub .tear-ticket__perforation {
+  top: calc(var(--tt-hole-size) * -0.5);
+  bottom: auto;
+}
+
+.tear-ticket__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tear-ticket__image { transition: none; }
+}

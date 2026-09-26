@@ -1,0 +1,60 @@
+.shuffle-parent {
+  display: inline-flex;
+  align-items: baseline;
+  white-space: nowrap;
+  visibility: hidden;
+}
+
+.shuffle-parent.is-ready { visibility: visible; }
+
+.shuffle-glyph {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  line-height: 1;
+  vertical-align: baseline;
+}
+
+.shuffle-ghost {
+  display: block;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.shuffle-strip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  will-change: transform;
+}
+
+.shuffle-strip--up,
+.shuffle-strip--down {
+  flex-direction: column;
+  width: 100%;
+}
+
+.shuffle-strip--left,
+.shuffle-strip--right {
+  flex-direction: row;
+  height: 100%;
+}
+
+.shuffle-cell {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 100%;
+  height: 1em;
+  line-height: 1;
+}
+
+.shuffle-strip--left .shuffle-cell,
+.shuffle-strip--right .shuffle-cell {
+  width: 1em;
+  height: 100%;
+}
+
+.shuffle-space { display: inline-block; width: 0.2em; }
+.shuffle-glyph--highlight { color: var(--hero-red); }

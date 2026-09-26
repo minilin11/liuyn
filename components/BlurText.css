@@ -1,0 +1,17 @@
+.blur-text__segment {
+  display: inline-block;
+  will-change: transform, filter, opacity;
+}
+
+.blur-text__segment--highlight {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--hero-red, #ff3528);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blur-text__segment {
+    filter: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

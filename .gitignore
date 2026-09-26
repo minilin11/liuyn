@@ -1,0 +1,20 @@
+# 前端依赖（最重要，屏蔽几万依赖文件）
+node_modules/
+.pnpm-store/
+
+# 数据库文件（你codex的sqlite，防止卡顿）
+*.sqlite
+*.db
+
+# 打包、缓存文件夹
+cache/
+tmp/
+dist/
+build/
+
+# 日志
+*.log
+
+# Windows系统垃圾文件
+Thumbs.db
+.DS_Store
